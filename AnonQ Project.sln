@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonQ Project", "AnonQ Proj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAPI", "DBAPI\DBAPI.csproj", "{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBDataAcces", "DBDataAcces\DBDataAcces.csproj", "{5725C83E-7234-4CC0-8C67-D46677740052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5725C83E-7234-4CC0-8C67-D46677740052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5725C83E-7234-4CC0-8C67-D46677740052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5725C83E-7234-4CC0-8C67-D46677740052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5725C83E-7234-4CC0-8C67-D46677740052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
