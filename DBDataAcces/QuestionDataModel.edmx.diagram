@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="89944e5d94a84d1cb56a069618d45adb" Name="Diagram1">
-        <EntityTypeShape EntityType="AnonQModel.Question" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnonQModel.Question" Width="1.5" PointX="3.5" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
