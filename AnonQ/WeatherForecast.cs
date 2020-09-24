@@ -1,6 +1,6 @@
 using System;
 
-namespace AnonQ_Project
+namespace AnonQ
 {
     public class WeatherForecast
     {
