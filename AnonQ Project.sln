@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAPI", "DBAPI\DBAPI.csproj", "{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBDataAcces", "DBDataAcces\DBDataAcces.csproj", "{5725C83E-7234-4CC0-8C67-D46677740052}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonQ", "AnonQ\AnonQ.csproj", "{4F47E335-9603-4C26-A809-C5924601168C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonQ", "AnonQ\AnonQ.csproj", "{4F47E335-9603-4C26-A809-C5924601168C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,14 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86C73DB8-160E-4B4A-98D3-5C84D4D7A89C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5725C83E-7234-4CC0-8C67-D46677740052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5725C83E-7234-4CC0-8C67-D46677740052}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5725C83E-7234-4CC0-8C67-D46677740052}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5725C83E-7234-4CC0-8C67-D46677740052}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F47E335-9603-4C26-A809-C5924601168C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F47E335-9603-4C26-A809-C5924601168C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F47E335-9603-4C26-A809-C5924601168C}.Release|Any CPU.ActiveCfg = Release|Any CPU

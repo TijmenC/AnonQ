@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace AnonQ.Models
 {
-    public class ToDoItem
+    public class TodoItem
     {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public bool IsComplete { get; set; }
     }
 }
