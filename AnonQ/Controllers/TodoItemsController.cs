@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnonQ.Models;
+using AnonQ.DTO;
 
 namespace AnonQ.Controllers
 {
@@ -31,7 +32,7 @@ namespace AnonQ.Controllers
 
         // GET: api/TodoItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+        public async Task<ActionResult<TodoItemDTO>> GetTodoItem(long id)
         {
             var todoItem = await _context.TodoItems.FindAsync(id);
 
@@ -47,7 +48,7 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
+        public async Task<IActionResult> PutTodoItem(long id, TodoItemDTO todoItem)
         {
             if (id != todoItem.Id)
             {
@@ -79,7 +80,7 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
+        public async Task<ActionResult<TodoItemDTO>> PostTodoItem(TodoItemDTO todoItem)
         {
             _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
@@ -89,7 +90,7 @@ namespace AnonQ.Controllers
 
         // DELETE: api/TodoItems/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TodoItem>> DeleteTodoItem(long id)
+        public async Task<ActionResult<TodoItemDTO>> DeleteTodoItem(long id)
         {
             var todoItem = await _context.TodoItems.FindAsync(id);
             if (todoItem == null)

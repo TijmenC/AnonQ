@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AnonQ.DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AnonQ.Models
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<TodoItemDTO> TodoItems { get; set; }
+
     }
 }
