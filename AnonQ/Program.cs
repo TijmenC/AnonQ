@@ -27,7 +27,7 @@ namespace AnonQ
 
                 try
                 {
-                    var context = services.GetRequiredService<TodoContext>();
+                    var context = services.GetRequiredService<QuestionContext>();
                     context.Database.EnsureCreated();
                 }
                 catch (Exception ex)

@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace AnonQ.Models
 {
-    public class TodoContext : DbContext
+    public class QuestionContext : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options)
+        public QuestionContext(DbContextOptions<QuestionContext> options)
             : base(options)
         {
         }
 
-        public DbSet<TodoItemDTO> TodoItems { get; set; }
+        public DbSet<QuestionDTO> Questions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TodoItemDTO>().ToTable("Questions");
+            modelBuilder.Entity<QuestionDTO>().ToTable("Questions");
         }
     }
 }

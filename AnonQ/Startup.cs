@@ -29,7 +29,7 @@ namespace AnonQ
         {
             // services.AddDbContext<TodoContext>(opt =>
             //   opt.UseInMemoryDatabase("TodoList"));
-            services.AddDbContext<TodoContext>
+            services.AddDbContext<QuestionContext>
                 (op => op.UseSqlServer(Configuration.GetConnectionString("AnonQDatabase")));
             services.AddControllers();
         }

@@ -12,11 +12,11 @@ namespace AnonQ.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TodoItemsController : ControllerBase
+    public class QuestionController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly QuestionContext _context;
 
-        public TodoItemsController(TodoContext context)
+        public QuestionController(QuestionContext context)
         {
             _context = context;
         }
@@ -32,9 +32,9 @@ namespace AnonQ.Controllers
 
         // GET: api/TodoItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItemDTO>> GetTodoItem(long id)
+        public async Task<ActionResult<QuestionDTO>> GetQuestion(long id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var todoItem = await _context.Questions.FindAsync(id);
 
             if (todoItem == null)
             {
@@ -48,7 +48,7 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(long id, TodoItemDTO todoItem)
+        public async Task<IActionResult> PutQuestion(long id, QuestionDTO todoItem)
         {
             if (id != todoItem.Id)
             {
@@ -63,7 +63,7 @@ namespace AnonQ.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TodoItemExists(id))
+                if (!QuestionExists(id))
                 {
                     return NotFound();
                 }
@@ -80,33 +80,33 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TodoItemDTO>> PostTodoItem(TodoItemDTO todoItem)
+        public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO todoItem)
         {
-            _context.TodoItems.Add(todoItem);
+            _context.Questions.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(GetQuestion), new { id = todoItem.Id }, todoItem);
         }
 
         // DELETE: api/TodoItems/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TodoItemDTO>> DeleteTodoItem(long id)
+        public async Task<ActionResult<QuestionDTO>> DeleteQuestion(long id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var todoItem = await _context.Questions.FindAsync(id);
             if (todoItem == null)
             {
                 return NotFound();
             }
 
-            _context.TodoItems.Remove(todoItem);
+            _context.Questions.Remove(todoItem);
             await _context.SaveChangesAsync();
 
             return todoItem;
         }
 
-        private bool TodoItemExists(long id)
+        private bool QuestionExists(long id)
         {
-            return _context.TodoItems.Any(e => e.Id == id);
+            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }
