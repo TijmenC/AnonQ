@@ -15,6 +15,10 @@ namespace AnonQ.Models
         }
 
         public DbSet<TodoItemDTO> TodoItems { get; set; }
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TodoItemDTO>().ToTable("Questions");
+        }
     }
 }
