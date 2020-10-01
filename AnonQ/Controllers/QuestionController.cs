@@ -22,13 +22,13 @@ namespace AnonQ.Controllers
         }
 
         // GET: api/TodoItems/5
-        /*
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
         {
-            return await _context.TodoItems.ToListAsync();
+            return await _context.Questions.ToListAsync();
         }
-        */
+        
 
         // GET: api/TodoItems/5
         [HttpGet("{id}")]
