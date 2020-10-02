@@ -32,6 +32,8 @@ namespace AnonQ
             services.AddDbContext<QuestionContext>
                 (op => op.UseSqlServer(Configuration.GetConnectionString("AnonQDatabase")));
             services.AddControllers();
+            //NOTE: re-enable cors when deployed
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +43,8 @@ namespace AnonQ
             {
                 app.UseDeveloperExceptionPage();
             }
+            //NOTE: re-enable cors when deployed
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
