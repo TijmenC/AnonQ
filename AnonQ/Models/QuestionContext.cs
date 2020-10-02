@@ -14,11 +14,11 @@ namespace AnonQ.Models
         {
         }
 
-        public DbSet<QuestionDTO> Questions { get; set; }
+        public DbSet<Question> Questions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<QuestionDTO>().ToTable("Questions");
+            modelBuilder.Entity<Question>().ToTable("Questions");
         }
     }
 }
