@@ -34,7 +34,7 @@ namespace AnonQ.Controllers
 
         // GET: api/TodoItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<QuestionDTO>> GetQuestion(long id)
+        public async Task<ActionResult<QuestionDTO>> GetQuestion(int id)
         {
             var todoItem = await _context.Questions.FindAsync(id);
 
