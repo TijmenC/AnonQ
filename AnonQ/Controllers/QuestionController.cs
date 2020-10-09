@@ -46,6 +46,18 @@ namespace AnonQ.Controllers
             return QuestionToDTO(todoItem);
         }
 
+        [HttpGet("{id}/GetRandomQuestionId")]
+        public int GetRandomQuestionID()
+        {
+            var todoItem = _context.Questions
+           .Select(p => p.Id)
+           .ToArray();
+            Random random = new Random();
+            int randomid = todoItem[random.Next(todoItem.Length)];
+
+            return randomid;
+        }
+
         // PUT: api/TodoItems/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
