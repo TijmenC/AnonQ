@@ -97,7 +97,7 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<QuestionDTO>> CreateTodoItem(QuestionDTO todoItemDTO)
+        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionDTO todoItemDTO)
         {
             var todoItem = new Question
             {
