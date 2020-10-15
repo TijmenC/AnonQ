@@ -84,11 +84,12 @@ namespace AnonQ.Controllers
         [HttpPost]
         public async Task<ActionResult<PollsDTO>> PostPolls(PollsDTO pollsDTO)
         {
+
             var todoItem = new Polls
             {
-               QuestionId = pollsDTO.QuestionId,
+             //  QuestionId = pollsDTO.QuestionId,
                Poll = pollsDTO.Poll,
-               Votes = pollsDTO.Votes
+             //  Votes = pollsDTO.Votes
         };
 
             _context.Polls.Add(todoItem);

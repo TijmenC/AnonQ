@@ -13,6 +13,6 @@ namespace AnonQ.DTO
         public string Image { get; set; }
         public string Tag { get; set; }
         public int Timer { get; set; }
-        public int CommentsEnabled { get; set; }
+        public bool CommentsEnabled { get; set; }
     }
 }
