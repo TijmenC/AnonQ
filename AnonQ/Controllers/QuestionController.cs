@@ -57,6 +57,15 @@ namespace AnonQ.Controllers
 
             return randomid;
         }
+        [HttpGet("GetQuestionIDByTitle/{title}")]
+        public int GetQuestionIDByTitle(string title)
+        {
+            var todoItem = _context.Questions
+            .Where(s => s.Title == title)
+            .Select(s => s.Id).FirstOrDefault();
+
+            return todoItem;
+        }
 
         // PUT: api/TodoItems/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
