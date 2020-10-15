@@ -110,7 +110,6 @@ namespace AnonQ.Controllers
         {
             var todoItem = new Question
             {
-                Id = todoItemDTO.Id,
                 Title = todoItemDTO.Title,
                 Description = todoItemDTO.Description,
                 Image = todoItemDTO.Image,
