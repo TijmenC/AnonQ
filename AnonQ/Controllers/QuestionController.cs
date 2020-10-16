@@ -106,17 +106,41 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionDTO todoItemDTO)
+        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionDTO questionDTO)
         {
             var todoItem = new Question
             {
-                Title = todoItemDTO.Title,
-                Description = todoItemDTO.Description,
-                Image = todoItemDTO.Image,
-                Tag = todoItemDTO.Tag,
-                Timer = todoItemDTO.Timer,
-                CommentsEnabled = todoItemDTO.CommentsEnabled
+                Title = questionDTO.Title,
+                Description = questionDTO.Description,
+                Image = questionDTO.Image,
+                Tag = questionDTO.Tag,
+                Timer = questionDTO.Timer,
+                CommentsEnabled = questionDTO.CommentsEnabled
             };
+            /*
+            var todoItem = new Question
+            {
+                Title = totalQuestion.question.Title,
+                Description = totalQuestion.question.Description,
+                Image = totalQuestion.question.Image,
+                Tag = totalQuestion.question.Tag,
+                Timer = totalQuestion.question.Timer,
+                CommentsEnabled = totalQuestion.question.CommentsEnabled
+            };
+            */
+                /*
+                 var allPollsDTO = totalQuestion.poll;
+                 List<Polls> allPolls = new List<Polls>();
+                 for (int i = 0; i < allPollsDTO.Count(); ++i) 
+                 {
+                     var poll = new Polls
+                     {
+                         Poll = totalQuestion.poll[i].Poll,
+                         QuestionId = totalQuestion.question.Id
+                     };
+                     allPolls.Add(poll);
+                 }
+                */
 
             _context.Questions.Add(todoItem);
             await _context.SaveChangesAsync();
