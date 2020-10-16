@@ -106,8 +106,9 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionDTO questionDTO)
+        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionPollViewModel totalQuestion)
         {
+            /*
             var todoItem = new Question
             {
                 Title = questionDTO.Title,
@@ -117,9 +118,11 @@ namespace AnonQ.Controllers
                 Timer = questionDTO.Timer,
                 CommentsEnabled = questionDTO.CommentsEnabled
             };
-            /*
+            */
+
             var todoItem = new Question
             {
+                Id = totalQuestion.question.Id,
                 Title = totalQuestion.question.Title,
                 Description = totalQuestion.question.Description,
                 Image = totalQuestion.question.Image,
@@ -127,23 +130,28 @@ namespace AnonQ.Controllers
                 Timer = totalQuestion.question.Timer,
                 CommentsEnabled = totalQuestion.question.CommentsEnabled
             };
-            */
-                /*
-                 var allPollsDTO = totalQuestion.poll;
-                 List<Polls> allPolls = new List<Polls>();
-                 for (int i = 0; i < allPollsDTO.Count(); ++i) 
-                 {
-                     var poll = new Polls
-                     {
-                         Poll = totalQuestion.poll[i].Poll,
-                         QuestionId = totalQuestion.question.Id
-                     };
-                     allPolls.Add(poll);
-                 }
-                */
 
+         
             _context.Questions.Add(todoItem);
             await _context.SaveChangesAsync();
+
+            var allPollsDTO = totalQuestion.poll;
+            List<Polls> allPolls = new List<Polls>();
+            for (int i = 0; i < allPollsDTO.Count(); ++i)
+            {
+                var poll = new Polls
+                {
+                    Poll = totalQuestion.poll[i].Poll,
+                    QuestionId = todoItem.Id
+                };
+                allPolls.Add(poll);
+            }
+
+            foreach (var pollitem in allPolls)
+            {
+                _context.Polls.Add(pollitem);
+                await _context.SaveChangesAsync();
+            }
 
             return CreatedAtAction(
                 nameof(GetQuestion),
