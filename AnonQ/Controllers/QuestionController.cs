@@ -46,7 +46,7 @@ namespace AnonQ.Controllers
             return QuestionToDTO(todoItem);
         }
 
-        [HttpGet("{id}/GetRandomQuestionId")]
+        [HttpGet("GetRandomQuestionId")]
         public int GetRandomQuestionID()
         {
             var todoItem = _context.Questions
@@ -56,6 +56,27 @@ namespace AnonQ.Controllers
             int randomid = todoItem[random.Next(todoItem.Length)];
 
             return randomid;
+        }
+
+        [HttpGet("{id}/QuestionAndPolls")]
+        public async Task<ActionResult<IEnumerable<QuestionPollViewModel>>> GetQuestionAndPolls(int id)
+        {
+            PollsDTO[] pollsDTOs;
+            QuestionPollViewModel questionAndPoll = new QuestionPollViewModel();
+            var question = await _context.Questions.FindAsync(id);
+            var questionDTO = QuestionToDTO(question);
+            var polls = _context.Polls.Where(s => s.QuestionId == id);
+            foreach (var poll in polls)
+            {
+                var pollsDTO = PollsController.PollsToDTO(poll);
+            }
+            var pollDTO = PollsController.PollsToDTO(poll);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+          
         }
         [HttpGet("GetQuestionIDByTitle/{title}")]
         public int GetQuestionIDByTitle(string title)

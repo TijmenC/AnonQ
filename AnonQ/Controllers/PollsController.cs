@@ -123,7 +123,7 @@ namespace AnonQ.Controllers
             return _context.Polls.Any(e => e.Id == id);
         }
 
-        private static PollsDTO PollsToDTO(Polls todoItem) =>
+        public static PollsDTO PollsToDTO(Polls todoItem) =>
       new PollsDTO
       {
           Id = todoItem.Id,
