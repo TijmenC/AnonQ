@@ -59,24 +59,28 @@ namespace AnonQ.Controllers
         }
 
         [HttpGet("{id}/QuestionAndPolls")]
-        public async Task<ActionResult<IEnumerable<QuestionPollViewModel>>> GetQuestionAndPolls(int id)
+        public async Task<ActionResult<QuestionPollViewModel>> GetQuestionAndPolls(int id)
         {
-            PollsDTO[] pollsDTOs;
+            List<PollsDTO> pollsDTO = new List<PollsDTO>();
             QuestionPollViewModel questionAndPoll = new QuestionPollViewModel();
-            var question = await _context.Questions.FindAsync(id);
-            var questionDTO = QuestionToDTO(question);
-            var polls = _context.Polls.Where(s => s.QuestionId == id);
-            foreach (var poll in polls)
-            {
-                var pollsDTO = PollsController.PollsToDTO(poll);
-            }
-            var pollDTO = PollsController.PollsToDTO(poll);
 
+            var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
             }
-          
+            var questionDTO = QuestionToDTO(question);
+            List<Polls> polls = await _context.Polls.Where(s => s.QuestionId == id).ToListAsync();
+            foreach (var poll in polls)
+            {
+                pollsDTO.Add(PollsController.PollsToDTO(poll));
+            }
+
+            questionAndPoll.question = questionDTO;
+            questionAndPoll.poll = pollsDTO;
+
+            return questionAndPoll;
+
         }
         [HttpGet("GetQuestionIDByTitle/{title}")]
         public int GetQuestionIDByTitle(string title)

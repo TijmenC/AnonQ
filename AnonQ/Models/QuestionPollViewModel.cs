@@ -9,6 +9,6 @@ namespace AnonQ.Models
     public class QuestionPollViewModel
     {
         public QuestionDTO question { get; set; }
-        public PollsDTO[] poll { get; set; }
+        public List<PollsDTO> poll { get; set; }
     }
 }
