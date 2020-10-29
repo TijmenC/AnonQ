@@ -43,6 +43,19 @@ namespace AnonQ.Controllers
 
             return PollsToDTO(todoItem);
         }
+        // GET: api/Polls/5
+        [HttpGet("{id}/GetPercentage")]
+        public async Task<ActionResult<PollsDTO>> GetPollPercentage(int id)
+        {
+            var todoItem = await _context.Polls.FindAsync(id);
+
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+
+            return PollsToDTO(todoItem);
+        }
 
         // PUT: api/Polls/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
