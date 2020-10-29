@@ -43,6 +43,15 @@ namespace AnonQ.Controllers
 
             return PollsToDTO(todoItem);
         }
+
+        // GET: api/Polls/5
+        [HttpGet("{questionid}/getPercentages")]
+        public async Task<ActionResult<PollsDTO>> GetPercentages(int questionid)
+        {
+            List<Polls> polls = await _context.Polls.Where(s => s.QuestionId == questionid).ToListAsync();
+            return null;
+        }
+
         // GET: api/Polls/5
         [HttpGet("{id}/GetPercentage")]
         public async Task<ActionResult<PollsDTO>> GetPollPercentage(int id)
