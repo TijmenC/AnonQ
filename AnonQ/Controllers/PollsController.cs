@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnonQ.Models;
 using AnonQ.DTO;
+using System.Runtime.InteropServices;
 
 namespace AnonQ.Controllers
 {
@@ -46,25 +47,21 @@ namespace AnonQ.Controllers
 
         // GET: api/Polls/5
         [HttpGet("{questionid}/getPercentages")]
-        public async Task<ActionResult<PollsDTO>> GetPercentages(int questionid)
+        public async Task<List<PollPercentageViewModel>> GetPercentages(int questionid)
         {
+            List<PollPercentageViewModel> allPollPercentages = new List<PollPercentageViewModel>();
             List<Polls> polls = await _context.Polls.Where(s => s.QuestionId == questionid).ToListAsync();
-            return null;
-        }
-
-        // GET: api/Polls/5
-        [HttpGet("{id}/GetPercentage")]
-        public async Task<ActionResult<PollsDTO>> GetPollPercentage(int id)
-        {
-            var todoItem = await _context.Polls.FindAsync(id);
-
-            if (todoItem == null)
+            int totalVotes =  _context.Polls.Where(s => s.QuestionId == questionid).Select(s => s.Votes).Distinct().Sum();
+            foreach (var poll in polls)
             {
-                return NotFound();
+                int percentage = (int)Math.Round((double)100 * poll.Votes / totalVotes);
+                var pollpercentage = PollsToPercentage(poll, percentage);
+                allPollPercentages.Add(pollpercentage);
             }
-
-            return PollsToDTO(todoItem);
+            return allPollPercentages;
         }
+
+   
 
         // PUT: api/Polls/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -184,5 +181,14 @@ namespace AnonQ.Controllers
           Poll = todoItem.Poll,
           Votes = todoItem.Votes
       };
+        public static PollPercentageViewModel PollsToPercentage(Polls todoItem, int percentage) =>
+     new PollPercentageViewModel
+     {
+         Id = todoItem.Id,
+         QuestionId = todoItem.QuestionId,
+         Poll = todoItem.Poll,
+         Votes = todoItem.Votes,
+         Percentage =  percentage
+     };
     }
 }
