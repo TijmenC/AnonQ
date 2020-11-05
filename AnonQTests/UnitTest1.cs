@@ -19,11 +19,11 @@ namespace AnonQTests
             {
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
-                        typeof(DbContextOptions<ApplicationDbContext>));
+                        typeof(DbContextOptions<QuestionContext>));
 
                 services.Remove(descriptor);
 
-                services.AddDbContext<ApplicationDbContext>(options =>
+                services.AddDbContext<QuestionContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
@@ -33,7 +33,7 @@ namespace AnonQTests
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<ApplicationDbContext>();
+                    var db = scopedServices.GetRequiredService<QuestionContext>();
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using AnonQ.Models;
 
 namespace AnonQ
@@ -34,6 +35,9 @@ namespace AnonQ
             services.AddControllers();
             //NOTE: re-enable cors when deployed
             services.AddCors();
+          
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +47,7 @@ namespace AnonQ
             {
                 app.UseDeveloperExceptionPage();
             }
-            //NOTE: re-enable cors when deployed
+            // Disable when in production!
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
