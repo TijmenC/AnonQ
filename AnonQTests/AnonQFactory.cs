@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,12 +6,10 @@ using Microsoft.Extensions.Logging;
 using AnonQ.Models;
 using System;
 using System.Linq;
-using Xunit;
-
 namespace AnonQTests
 {
-    public class CustomWebApplicationFactory<TStartup>
-     : WebApplicationFactory<TStartup> where TStartup : class
+    public class AnonQFactory<TStartup>
+: WebApplicationFactory<TStartup> where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -35,7 +33,7 @@ namespace AnonQTests
                     var scopedServices = scope.ServiceProvider;
                     var db = scopedServices.GetRequiredService<QuestionContext>();
                     var logger = scopedServices
-                        .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+                        .GetRequiredService<ILogger<AnonQFactory<TStartup>>>();
 
                     db.Database.EnsureCreated();
 
