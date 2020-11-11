@@ -16,11 +16,16 @@ namespace AnonQ.Models
 
         public DbSet<Question> Questions { get; set; }
         public DbSet<Polls> Polls { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Question>().ToTable("Questions");
             modelBuilder.Entity<Polls>().ToTable("Polls");
+            modelBuilder.Entity<Comment>().ToTable("Comments");
+
+
         }
     }
 }
