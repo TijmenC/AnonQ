@@ -22,7 +22,7 @@ namespace AnonQ.Controllers
 
         // GET: api/Polls
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CommentDTO>>> GetCommentss()
+        public async Task<ActionResult<IEnumerable<CommentDTO>>> GetComments(int id)
         {
             return await _context.Comments
                .Select(x => CommentToDTO(x))
@@ -41,6 +41,18 @@ namespace AnonQ.Controllers
             }
 
             return CommentToDTO(todoItem);
+        }
+        // GET: api/Polls/5
+        [HttpGet("{id}/GetAllCommentsID")]
+        public async Task<ActionResult<IEnumerable<CommentDTO>>> GetAllCommentsID(int id)
+        {
+            List<CommentDTO> commentsDTO = new List<CommentDTO>();
+            List<Comment> comments = await _context.Comments.Where(s => s.QuestionId == id).ToListAsync();
+            foreach (var comment in comments)
+            {
+                commentsDTO.Add(CommentToDTO(comment));
+            }
+            return commentsDTO;
         }
 
 
@@ -119,9 +131,9 @@ namespace AnonQ.Controllers
 
             var todoItem = new Comment
             {
-                //  QuestionId = pollsDTO.QuestionId,
+                QuestionId = CommentDTO.QuestionId,
                 Text = CommentDTO.Text
-                //  Votes = pollsDTO.Votes
+              //  Votes = pollsDTO.Votes
             };
 
             _context.Comments.Add(todoItem);
