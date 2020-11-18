@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonQ", "AnonQ\AnonQ.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonQTests", "AnonQTests\AnonQTests.csproj", "{DB333B44-27EB-49D2-9369-8E025C0662D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonQJobs", "AnonQJobs\AnonQJobs.csproj", "{8F2CC729-CACF-4201-887B-F666DC988B69}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{DB333B44-27EB-49D2-9369-8E025C0662D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB333B44-27EB-49D2-9369-8E025C0662D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB333B44-27EB-49D2-9369-8E025C0662D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F2CC729-CACF-4201-887B-F666DC988B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F2CC729-CACF-4201-887B-F666DC988B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F2CC729-CACF-4201-887B-F666DC988B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F2CC729-CACF-4201-887B-F666DC988B69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
