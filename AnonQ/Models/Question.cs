@@ -14,5 +14,6 @@ namespace AnonQ.Models
         public string Tag { get; set; }
         public int Timer { get; set; }
         public bool CommentsEnabled { get; set; }
+        public DateTime DeletionTime { get; set; }
     }
 }
