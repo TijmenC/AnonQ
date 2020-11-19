@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AnonQJobs
 {
-    public class DeleteQuestionJob : IJob
+    public class DeletePollsJob : IJob
     {
         private readonly ILogger<DeleteQuestionJob> _logger;
         private readonly IServiceProvider _provider;
-        public DeleteQuestionJob(IServiceProvider provider, ILogger<DeleteQuestionJob> logger)
+        public DeletePollsJob(IServiceProvider provider, ILogger<DeleteQuestionJob> logger)
         {
             _provider = provider;
             _logger = logger;
@@ -24,19 +24,24 @@ namespace AnonQJobs
             using (var scope = _provider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<QuestionContext>();
-                var overdueQuestions = dbContext.Questions.Where(p => p.DeletionTime < DateTime.UtcNow).ToArray();
-                if (overdueQuestions != null)
+                var overDueQuestionsId = dbContext.Questions.Where(p => p.DeletionTime < DateTime.UtcNow).Select(p => p.Id).ToArray();
+                if (overDueQuestionsId != null)
                 {
-                    foreach (var question in overdueQuestions)
+                    foreach (var questionid in overDueQuestionsId)
                     {
-                        dbContext.Questions.Remove(question);
-                        _logger.LogInformation("Deleted Question");
+                        var deletionPolls = dbContext.Polls.Find(questionid);
+                        if (deletionPolls != null)
+                        {
+                            dbContext.Remove(deletionPolls);
+                            _logger.LogInformation("Deleted Polls");
+                            dbContext.SaveChanges();
+                        }
                     }
-                    dbContext.SaveChanges();
+        
                 }
                 else
                 {
-                    _logger.LogInformation("Questions not found");
+                    _logger.LogInformation("Polls not found");
                 }
 
             }

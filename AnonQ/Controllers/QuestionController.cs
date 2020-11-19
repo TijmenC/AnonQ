@@ -76,8 +76,8 @@ namespace AnonQ.Controllers
                 pollsDTO.Add(PollsController.PollsToDTO(poll));
             }
 
-            questionAndPoll.question = questionDTO;
-            questionAndPoll.poll = pollsDTO;
+            questionAndPoll.Question = questionDTO;
+            questionAndPoll.Poll = pollsDTO;
 
             return questionAndPoll;
 
@@ -105,7 +105,6 @@ namespace AnonQ.Controllers
             todoItem.Description = todoItem.Description;
             todoItem.Image = todoItem.Image;
             todoItem.Tag = todoItem.Tag;
-            todoItem.Timer = todoItem.Timer;
             todoItem.CommentsEnabled = todoItem.CommentsEnabled;
 
             try
@@ -125,40 +124,32 @@ namespace AnonQ.Controllers
         [HttpPost]
         public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionPollViewModel totalQuestion)
         {
-            /*
-            var todoItem = new Question
-            {
-                Title = questionDTO.Title,
-                Description = questionDTO.Description,
-                Image = questionDTO.Image,
-                Tag = questionDTO.Tag,
-                Timer = questionDTO.Timer,
-                CommentsEnabled = questionDTO.CommentsEnabled
-            };
-            */
+            //TimeSpan addedHours = new TimeSpan(0, totalQuestion.Expiretime, 0, 0);
+            TimeSpan addedHours = new TimeSpan(0, 0, 2, 0);
+            var expireTime = DateTime.UtcNow.Add(addedHours);
 
             var todoItem = new Question
             {
-                Id = totalQuestion.question.Id,
-                Title = totalQuestion.question.Title,
-                Description = totalQuestion.question.Description,
-                Image = totalQuestion.question.Image,
-                Tag = totalQuestion.question.Tag,
-                Timer = totalQuestion.question.Timer,
-                CommentsEnabled = totalQuestion.question.CommentsEnabled
+                Id = totalQuestion.Question.Id,
+                Title = totalQuestion.Question.Title,
+                Description = totalQuestion.Question.Description,
+                Image = totalQuestion.Question.Image,
+                Tag = totalQuestion.Question.Tag,
+                CommentsEnabled = totalQuestion.Question.CommentsEnabled,
+                DeletionTime = expireTime
             };
 
          
             _context.Questions.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            var allPollsDTO = totalQuestion.poll;
+            var allPollsDTO = totalQuestion.Poll;
             List<Polls> allPolls = new List<Polls>();
             for (int i = 0; i < allPollsDTO.Count(); ++i)
             {
                 var poll = new Polls
                 {
-                    Poll = totalQuestion.poll[i].Poll,
+                    Poll = totalQuestion.Poll[i].Poll,
                     QuestionId = todoItem.Id
                 };
                 allPolls.Add(poll);
@@ -206,8 +197,8 @@ namespace AnonQ.Controllers
           Description = todoItem.Description,
           Image = todoItem.Image,
           Tag = todoItem.Tag,
-          Timer = todoItem.Timer,
-          CommentsEnabled = todoItem.CommentsEnabled
+          CommentsEnabled = todoItem.CommentsEnabled,
+          DeletionTime = todoItem.DeletionTime
       };
     }
 }

@@ -34,16 +34,22 @@ namespace AnonQJobs
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
 
-            // Add our job
-            services.AddSingleton<HelloWorldJob>();
+            // Add jobs
+            //services.AddSingleton<HelloWorldJob>();
+            //services.AddSingleton(new JobSchedule(
+            //    jobType: typeof(HelloWorldJob),
+            //    cronExpression: "0/5 * * * * ?")); // run every 5 seconds
+
+            services.AddSingleton<DeletePollsJob>();
             services.AddSingleton(new JobSchedule(
-                jobType: typeof(HelloWorldJob),
+                jobType: typeof(DeletePollsJob),
                 cronExpression: "0/5 * * * * ?")); // run every 5 seconds
 
             services.AddSingleton<DeleteQuestionJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(DeleteQuestionJob),
-                cronExpression: "0/10 * * * * ?")); // every day at noon
+                cronExpression: "0/25 * * * * ?")); // run every 25 seconds
+
 
             services.AddHostedService<QuartzHostedService>();
         }

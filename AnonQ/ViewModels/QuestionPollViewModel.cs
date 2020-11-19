@@ -8,7 +8,8 @@ namespace AnonQ.Models
 {
     public class QuestionPollViewModel
     {
-        public QuestionDTO question { get; set; }
-        public List<PollsDTO> poll { get; set; }
+        public QuestionDTO Question { get; set; }
+        public List<PollsDTO> Poll { get; set; }
+        public int Expiretime { get; set; }
     }
 }
