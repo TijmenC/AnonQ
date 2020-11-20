@@ -24,7 +24,24 @@ namespace AnonQJobs
             using (var scope = _provider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<QuestionContext>();
+
                 var overdueQuestions = dbContext.Questions.Where(p => p.DeletionTime < DateTime.UtcNow).ToArray();
+
+                var overDueQuestionsId = dbContext.Questions.Where(p => p.DeletionTime < DateTime.UtcNow).Select(p => p.Id).ToArray();
+                if (overDueQuestionsId != null)
+                {
+                    foreach (var questionid in overDueQuestionsId)
+                    {
+                        var deletionPolls = dbContext.Polls.Where(p => p.QuestionId == questionid).ToArray();
+                        if (deletionPolls != null)
+                        {
+                            dbContext.Polls.RemoveRange(deletionPolls);
+                            _logger.LogInformation("Deleted Polls");
+                        }
+                    }
+
+                }
+
                 if (overdueQuestions != null)
                 {
                     foreach (var question in overdueQuestions)
@@ -32,13 +49,8 @@ namespace AnonQJobs
                         dbContext.Questions.Remove(question);
                         _logger.LogInformation("Deleted Question");
                     }
-                    dbContext.SaveChanges();
                 }
-                else
-                {
-                    _logger.LogInformation("Questions not found");
-                }
-
+                dbContext.SaveChanges();
             }
 
             return Task.CompletedTask;

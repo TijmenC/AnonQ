@@ -24,10 +24,9 @@ namespace AnonQJobs
         }
 
         public IConfiguration Configuration { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add DB
             services.AddDbContext<QuestionContext>
               (op => op.UseSqlServer(Configuration.GetConnectionString("AnonQDatabase")));
             // Add Quartz services
@@ -35,26 +34,17 @@ namespace AnonQJobs
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
 
             // Add jobs
-            //services.AddSingleton<HelloWorldJob>();
-            //services.AddSingleton(new JobSchedule(
-            //    jobType: typeof(HelloWorldJob),
-            //    cronExpression: "0/5 * * * * ?")); // run every 5 seconds
-
-            services.AddSingleton<DeletePollsJob>();
-            services.AddSingleton(new JobSchedule(
-                jobType: typeof(DeletePollsJob),
-                cronExpression: "0/5 * * * * ?")); // run every 5 seconds
 
             services.AddSingleton<DeleteQuestionJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(DeleteQuestionJob),
-                cronExpression: "0/25 * * * * ?")); // run every 25 seconds
+                cronExpression: "0 0/1 * * * ?")); // run every minute 
 
 
             services.AddHostedService<QuartzHostedService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -68,7 +58,7 @@ namespace AnonQJobs
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Jobs activated");
                 });
             });
         }
