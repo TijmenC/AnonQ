@@ -124,8 +124,8 @@ namespace AnonQ.Controllers
         [HttpPost]
         public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionPollViewModel totalQuestion)
         {
-            //TimeSpan addedHours = new TimeSpan(0, totalQuestion.Expiretime, 0, 0);
-            TimeSpan addedHours = new TimeSpan(0, 0, 1, 0);
+           // TimeSpan addedHours = new TimeSpan(0, 0, 1, 0); (TimeSpan to test with)
+            TimeSpan addedHours = new TimeSpan(0, totalQuestion.Expiretime, 0, 0);
             var expireTime = DateTime.UtcNow.Add(addedHours);
 
             var todoItem = new Question
