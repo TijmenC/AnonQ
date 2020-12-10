@@ -82,7 +82,7 @@ namespace AnonQ.Controllers
             return questionAndPoll;
 
         }
-    
+
 
         // PUT: api/TodoItems/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -124,7 +124,7 @@ namespace AnonQ.Controllers
         [HttpPost]
         public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionPollViewModel totalQuestion)
         {
-           // TimeSpan addedHours = new TimeSpan(0, 0, 1, 0); (TimeSpan to test with)
+            // TimeSpan addedHours = new TimeSpan(0, 0, 1, 0); (TimeSpan to test with)
             TimeSpan addedHours = new TimeSpan(0, totalQuestion.Expiretime, 0, 0);
             var expireTime = DateTime.UtcNow.Add(addedHours);
 
@@ -139,7 +139,7 @@ namespace AnonQ.Controllers
                 DeletionTime = expireTime
             };
 
-         
+
             _context.Questions.Add(todoItem);
             await _context.SaveChangesAsync();
 
@@ -170,7 +170,7 @@ namespace AnonQ.Controllers
 
         // DELETE: api/TodoItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestion(long id)
+        public async Task<IActionResult> DeleteQuestion(int id)
         {
             var todoItem = await _context.Questions.FindAsync(id);
 
@@ -184,6 +184,48 @@ namespace AnonQ.Controllers
 
             return NoContent();
         }
+
+        // DELETE: api/TodoItems/5
+        [HttpDelete("DeleteQuestionAndPolls/{id}")]
+        public async Task<IActionResult> DeleteQuestionAndPolls(int id)
+        {
+            var todoItem = await _context.Questions.FindAsync(id);
+
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+
+            _context.Questions.Remove(todoItem);
+            var todoItems = _context.Polls.Where(x => x.QuestionId == id);
+
+            if (todoItems == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var poll in todoItems)
+            {
+                _context.Polls.Remove(poll);
+            }
+
+            var comments = _context.Comments.Where(x => x.QuestionId == id);
+
+            if (comments == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var comment in comments)
+            {
+                _context.Comments.Remove(comment);
+            }
+
+            await _context.SaveChangesAsync();
+           
+            return NoContent();
+        }
+
 
         private bool QuestionExists(long id)
         {

@@ -168,6 +168,7 @@ namespace AnonQ.Controllers
             return NoContent();
         }
 
+       
         private bool PollsExists(int id)
         {
             return _context.Polls.Any(e => e.Id == id);
