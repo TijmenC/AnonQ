@@ -38,6 +38,12 @@ namespace AnonQJobs
                             dbContext.Polls.RemoveRange(deletionPolls);
                             _logger.LogInformation("Deleted Polls");
                         }
+                        var deletionComments = dbContext.Comments.Where(p => p.QuestionId == questionid).ToArray();
+                        if (deletionComments != null)
+                        {
+                            dbContext.Comments.RemoveRange(deletionComments);
+                            _logger.LogInformation("Deleted Comments");
+                        }
                     }
 
                 }
