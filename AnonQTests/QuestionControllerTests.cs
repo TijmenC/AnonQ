@@ -1,5 +1,8 @@
 ﻿using AnonQ;
+using AnonQ.DTO;
+using AnonQ.Models;
 using FluentAssertions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -21,7 +24,33 @@ namespace AnonQTests
             _factory = factory;
             _client = factory.CreateClient();
         }
+        /*
+        [Fact]
+        public async Task Post_Succeed_Question()
+        {
+            var response = await _client.PostAsync("api/internships", new StringContent(JsonConvert.SerializeObject(new QuestionPollViewModel()
+            {
+                Question =
+                {
+                    Title = "title",
+                    Description = "description",
+                    Tag = "Relationship",
+                    CommentsEnabled = true
+                },
+                Poll =
+                {
+                    new PollsDTO { Poll = "1"},
+                    new PollsDTO { Poll = "1"}
 
+                },
+                Expiretime = 3
+            }), Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
+        */
         [Fact]
         public async Task Get_Request_Should_Return_Ok_One()
         {
@@ -57,6 +86,8 @@ namespace AnonQTests
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+
+     
 
     }
 }
