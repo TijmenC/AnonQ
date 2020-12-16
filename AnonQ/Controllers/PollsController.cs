@@ -45,7 +45,7 @@ namespace AnonQ.Controllers
             return PollsToDTO(todoItem);
         }
 
-        // GET: api/Polls/5
+        // GET: api/Polls/5/getPercentages
         [HttpGet("{questionid}/getPercentages")]
         public async Task<List<PollPercentageViewModel>> GetPercentages(int questionid)
         {
@@ -96,6 +96,7 @@ namespace AnonQ.Controllers
 
             return NoContent();
         }
+        // PUT: api/Polls/5/UpdateVotes
         [HttpPut("{id}/UpdateVotes")]
         public async Task<IActionResult> PutVotes(int id, PollsDTO pollsDTO)
         {

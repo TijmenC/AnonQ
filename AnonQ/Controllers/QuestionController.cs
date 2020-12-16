@@ -21,7 +21,7 @@ namespace AnonQ.Controllers
             _context = context;
         }
 
-        // GET: api/TodoItems/5
+        // GET: api/Question/5
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
@@ -32,7 +32,7 @@ namespace AnonQ.Controllers
         }
 
 
-        // GET: api/TodoItems/5
+        // GET: api/Question/5
         [HttpGet("{id}")]
         public async Task<ActionResult<QuestionDTO>> GetQuestion(int id)
         {
@@ -45,7 +45,7 @@ namespace AnonQ.Controllers
 
             return QuestionToDTO(todoItem);
         }
-
+        // GET: api/Question/GetRandomQuestionId
         [HttpGet("GetRandomQuestionId")]
         public int GetRandomQuestionID()
         {
@@ -57,7 +57,7 @@ namespace AnonQ.Controllers
 
             return randomid;
         }
-
+        // GET: api/Question/QuestionAndPolls
         [HttpGet("{id}/QuestionAndPolls")]
         public async Task<ActionResult<QuestionPollViewModel>> GetQuestionAndPolls(int id)
         {
@@ -84,7 +84,7 @@ namespace AnonQ.Controllers
         }
     
 
-        // PUT: api/TodoItems/5
+        // PUT: api/Question/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -118,7 +118,7 @@ namespace AnonQ.Controllers
 
             return NoContent();
         }
-        // POST: api/TodoItems
+        // POST: api/Question
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
@@ -168,7 +168,7 @@ namespace AnonQ.Controllers
         }
 
 
-        // DELETE: api/TodoItems/5
+        // DELETE: api/Question/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(long id)
         {

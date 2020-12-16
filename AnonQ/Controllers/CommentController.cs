@@ -20,7 +20,7 @@ namespace AnonQ.Controllers
             _context = context;
         }
 
-        // GET: api/Polls
+        // GET: api/Comment
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CommentDTO>>> GetComments(int id)
         {
@@ -29,7 +29,7 @@ namespace AnonQ.Controllers
                .ToListAsync();
         }
 
-        // GET: api/Polls/5
+        // GET: api/Comment/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CommentDTO>> GetComment(int id)
         {
@@ -42,7 +42,7 @@ namespace AnonQ.Controllers
 
             return CommentToDTO(todoItem);
         }
-        // GET: api/Polls/5
+        // GET: api/Comment/5
         [HttpGet("{id}/GetAllCommentsID")]
         public async Task<ActionResult<IEnumerable<CommentDTO>>> GetAllCommentsID(int id)
         {
@@ -57,7 +57,7 @@ namespace AnonQ.Controllers
 
 
 
-        // PUT: api/Polls/5
+        // PUT: api/Comment/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -90,39 +90,9 @@ namespace AnonQ.Controllers
 
             return NoContent();
         }
-        [HttpPut("{id}/UpdateVotes")]
-        public async Task<IActionResult> PutVotes(int id, PollsDTO pollsDTO)
-        {
-            if (id != pollsDTO.Id)
-            {
-                return BadRequest();
-            }
-
-            var todoItem = await _context.Polls.FindAsync(id);
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-
-            todoItem.QuestionId = pollsDTO.QuestionId;
-            todoItem.Poll = pollsDTO.Poll;
-            todoItem.Votes = pollsDTO.Votes + 1;
 
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!CommentExists(id))
-            {
-                return NotFound();
-            }
-
-            return NoContent();
-        }
-
-
-        // POST: api/Polls
+        // POST: api/Comment
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
@@ -145,7 +115,7 @@ namespace AnonQ.Controllers
                 CommentToDTO(todoItem));
         }
 
-        // DELETE: api/Polls/5
+        // DELETE: api/Comment/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<CommentDTO>> DeleteComment(int id)
         {
