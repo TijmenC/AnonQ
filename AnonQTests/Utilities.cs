@@ -29,9 +29,9 @@ namespace AnonQTests
         {
             return new List<Question>()
     {
-        new Question(){Id = 1, Title="Title", Description = "Description", Image="image.png", CommentsEnabled=true, Tag="Tag" },
-        new Question(){Id = 2, Title="Title2", Description = "Description2", Image="image2.png", CommentsEnabled=true, Tag="Tag2"},
-        new Question(){Id = 3, Title="Title3", Description = "Description3", Image="image3.png", CommentsEnabled=true, Tag="Tag3" }
+        new Question(){Id = 1, Title="Title", Description = "Description", Image="image.png", CommentsEnabled=true, Tag="Tag", DeletionTime=new DateTime(2020, 12, 25) },
+        new Question(){Id = 2, Title="Title2", Description = "Description2", Image="image2.png", CommentsEnabled=true, Tag="Tag2", DeletionTime=new DateTime(2020, 12, 26) },
+        new Question(){Id = 3, Title="Title3", Description = "Description3", Image="image3.png", CommentsEnabled=true, Tag="Tag3", DeletionTime=new DateTime(2020, 12, 27) }
     };
         }
         public static List<Polls> GetSeedingPolls()

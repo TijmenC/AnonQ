@@ -102,10 +102,11 @@ namespace AnonQ.Controllers
             }
 
             todoItem.Title = todoItemDTO.Title;
-            todoItem.Description = todoItem.Description;
-            todoItem.Image = todoItem.Image;
-            todoItem.Tag = todoItem.Tag;
-            todoItem.CommentsEnabled = todoItem.CommentsEnabled;
+            todoItem.Description = todoItemDTO.Description;
+            todoItem.Image = todoItemDTO.Image;
+            todoItem.Tag = todoItemDTO.Tag;
+            todoItem.CommentsEnabled = todoItemDTO.CommentsEnabled;
+            todoItem.DeletionTime = todoItemDTO.DeletionTime;
 
             try
             {
@@ -121,8 +122,8 @@ namespace AnonQ.Controllers
         // POST: api/Question
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionPollViewModel totalQuestion)
+        [HttpPost("QuestionAndPoll")]
+        public async Task<ActionResult<QuestionDTO>> CreateQuestionAndPolls(QuestionPollViewModel totalQuestion)
         {
             // TimeSpan addedHours = new TimeSpan(0, 0, 1, 0); (TimeSpan to test with)
             TimeSpan addedHours = new TimeSpan(0, totalQuestion.Expiretime, 0, 0);
@@ -166,6 +167,36 @@ namespace AnonQ.Controllers
                 new { id = todoItem.Id },
                 QuestionToDTO(todoItem));
         }
+        // POST: api/Question
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionDTO questionDTO)
+        {
+         
+
+            var question = new Question
+            {
+                Id = questionDTO.Id,
+                Title = questionDTO.Title,
+                Description = questionDTO.Description,
+                Image = questionDTO.Image,
+                Tag = questionDTO.Tag,
+                CommentsEnabled = questionDTO.CommentsEnabled,
+                DeletionTime = questionDTO.DeletionTime
+            };
+
+
+            _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+
+          
+            return CreatedAtAction(
+                nameof(GetQuestion),
+                new { id = question.Id },
+                QuestionToDTO(question));
+        }
+
 
 
         // DELETE: api/Question/5
