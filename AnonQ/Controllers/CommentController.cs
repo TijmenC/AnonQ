@@ -33,14 +33,14 @@ namespace AnonQ.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CommentDTO>> GetComment(int id)
         {
-            var todoItem = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.FindAsync(id);
 
-            if (todoItem == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return CommentToDTO(todoItem);
+            return CommentToDTO(comment);
         }
         // GET: api/Comment/5/GetAllCommentsID
         [HttpGet("{id}/GetAllCommentsID")]
@@ -96,37 +96,36 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CommentDTO>> PostComment(Comment CommentDTO)
+        public async Task<ActionResult<CommentDTO>> PostComment(CommentDTO CommentDTO)
         {
 
-            var todoItem = new Comment
+            var comment = new Comment
             {
                 QuestionId = CommentDTO.QuestionId,
                 Text = CommentDTO.Text
-              //  Votes = pollsDTO.Votes
             };
 
-            _context.Comments.Add(todoItem);
+            _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(
                 nameof(GetComment),
-                new { id = todoItem.Id },
-                CommentToDTO(todoItem));
+                new { id = comment.Id },
+                CommentToDTO(comment));
         }
 
         // DELETE: api/Comment/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<CommentDTO>> DeleteComment(int id)
         {
-            var todoItem = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.FindAsync(id);
 
-            if (todoItem == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            _context.Comments.Remove(todoItem);
+            _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
 
             return NoContent();

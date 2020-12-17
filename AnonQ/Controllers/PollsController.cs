@@ -35,14 +35,14 @@ namespace AnonQ.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PollsDTO>> GetPoll(int id)
         {
-            var todoItem = await _context.Polls.FindAsync(id);
+            var poll = await _context.Polls.FindAsync(id);
 
-            if (todoItem == null)
+            if (poll == null)
             {
                 return NotFound();
             }
 
-            return PollsToDTO(todoItem);
+            return PollsToDTO(poll);
         }
 
         // GET: api/Polls/5/getPercentages
@@ -74,15 +74,15 @@ namespace AnonQ.Controllers
                 return BadRequest();
             }
 
-            var todoItem = await _context.Polls.FindAsync(id);
-            if (todoItem == null)
+            var poll = await _context.Polls.FindAsync(id);
+            if (poll == null)
             {
                 return NotFound();
             }
 
-            todoItem.QuestionId = pollsDTO.QuestionId;
-            todoItem.Poll = pollsDTO.Poll;
-            todoItem.Votes = pollsDTO.Votes;
+            poll.QuestionId = pollsDTO.QuestionId;
+            poll.Poll = pollsDTO.Poll;
+            poll.Votes = pollsDTO.Votes;
         
 
             try
@@ -105,15 +105,15 @@ namespace AnonQ.Controllers
                 return BadRequest();
             }
 
-            var todoItem = await _context.Polls.FindAsync(id);
-            if (todoItem == null)
+            var poll = await _context.Polls.FindAsync(id);
+            if (poll == null)
             {
                 return NotFound();
             }
 
-            todoItem.QuestionId = pollsDTO.QuestionId;
-            todoItem.Poll = pollsDTO.Poll;
-            todoItem.Votes = pollsDTO.Votes +1;
+            poll.QuestionId = pollsDTO.QuestionId;
+            poll.Poll = pollsDTO.Poll;
+            poll.Votes = pollsDTO.Votes +1;
 
 
             try
@@ -136,34 +136,32 @@ namespace AnonQ.Controllers
         public async Task<ActionResult<PollsDTO>> PostPolls(PollsDTO pollsDTO)
         {
 
-            var todoItem = new Polls
-            {
-             //  QuestionId = pollsDTO.QuestionId,
-               Poll = pollsDTO.Poll,
-             //  Votes = pollsDTO.Votes
-        };
+            var poll = new Polls
+            {           
+               Poll = pollsDTO.Poll
+            };
 
-            _context.Polls.Add(todoItem);
+            _context.Polls.Add(poll);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(
                 nameof(GetPoll),
-                new { id = todoItem.Id },
-                PollsToDTO(todoItem));
+                new { id = poll.Id },
+                PollsToDTO(poll));
         }
 
         // DELETE: api/Polls/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<PollsDTO>> DeletePoll(int id)
         {
-            var todoItem = await _context.Polls.FindAsync(id);
+            var poll = await _context.Polls.FindAsync(id);
 
-            if (todoItem == null)
+            if (poll == null)
             {
                 return NotFound();
             }
 
-            _context.Polls.Remove(todoItem);
+            _context.Polls.Remove(poll);
             await _context.SaveChangesAsync();
 
             return NoContent();

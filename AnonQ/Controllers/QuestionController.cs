@@ -36,24 +36,24 @@ namespace AnonQ.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<QuestionDTO>> GetQuestion(int id)
         {
-            var todoItem = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
 
-            if (todoItem == null)
+            if (question == null)
             {
                 return NotFound();
             }
 
-            return QuestionToDTO(todoItem);
+            return QuestionToDTO(question);
         }
         // GET: api/Question/GetRandomQuestionId
         [HttpGet("GetRandomQuestionId")]
         public int GetRandomQuestionID()
         {
-            var todoItem = _context.Questions
+            var question = _context.Questions
            .Select(p => p.Id)
            .ToArray();
             Random random = new Random();
-            int randomid = todoItem[random.Next(todoItem.Length)];
+            int randomid = question[random.Next(question.Length)];
 
             return randomid;
         }
@@ -88,25 +88,25 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateQuestion(int id, QuestionDTO todoItemDTO)
+        public async Task<IActionResult> UpdateQuestion(int id, QuestionDTO questionDTO)
         {
-            if (id != todoItemDTO.Id)
+            if (id != questionDTO.Id)
             {
                 return BadRequest();
             }
 
-            var todoItem = await _context.Questions.FindAsync(id);
-            if (todoItem == null)
+            var question = await _context.Questions.FindAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
 
-            todoItem.Title = todoItemDTO.Title;
-            todoItem.Description = todoItemDTO.Description;
-            todoItem.Image = todoItemDTO.Image;
-            todoItem.Tag = todoItemDTO.Tag;
-            todoItem.CommentsEnabled = todoItemDTO.CommentsEnabled;
-            todoItem.DeletionTime = todoItemDTO.DeletionTime;
+            question.Title = questionDTO.Title;
+            question.Description = questionDTO.Description;
+            question.Image = questionDTO.Image;
+            question.Tag = questionDTO.Tag;
+            question.CommentsEnabled = questionDTO.CommentsEnabled;
+            question.DeletionTime = questionDTO.DeletionTime;
 
             try
             {
@@ -129,7 +129,7 @@ namespace AnonQ.Controllers
             TimeSpan addedHours = new TimeSpan(0, totalQuestion.Expiretime, 0, 0);
             var expireTime = DateTime.UtcNow.Add(addedHours);
 
-            var todoItem = new Question
+            var question = new Question
             {
                 Id = totalQuestion.Question.Id,
                 Title = totalQuestion.Question.Title,
@@ -141,7 +141,7 @@ namespace AnonQ.Controllers
             };
 
          
-            _context.Questions.Add(todoItem);
+            _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
             var allPollsDTO = totalQuestion.Poll;
@@ -151,7 +151,7 @@ namespace AnonQ.Controllers
                 var poll = new Polls
                 {
                     Poll = totalQuestion.Poll[i].Poll,
-                    QuestionId = todoItem.Id
+                    QuestionId = question.Id
                 };
                 allPolls.Add(poll);
             }
@@ -164,8 +164,8 @@ namespace AnonQ.Controllers
 
             return CreatedAtAction(
                 nameof(GetQuestion),
-                new { id = todoItem.Id },
-                QuestionToDTO(todoItem));
+                new { id = question.Id },
+                QuestionToDTO(question));
         }
         // POST: api/Question
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -202,14 +202,14 @@ namespace AnonQ.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<QuestionDTO>> DeleteQuestion(int id)
         {
-            var todoItem = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
 
-            if (todoItem == null)
+            if (question == null)
             {
                 return NotFound();
             }
 
-            _context.Questions.Remove(todoItem);
+            _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
             return NoContent();
