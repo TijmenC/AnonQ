@@ -87,36 +87,21 @@ namespace AnonQTests
         public async Task Post_Succeed_QuestionAndPoll()
         {
             List<PollsDTO> polls = new List<PollsDTO>();
-            var NewObject = new QuestionDTO();
+            var NewQuestion = new QuestionDTO();
             polls.Add(new PollsDTO() { Id = 11, QuestionId = 11, Poll = "Poll 1", Votes = 11 });
             polls.Add(new PollsDTO() { Id = 10, QuestionId = 11, Poll = "Poll 2", Votes = 12 });
             var vm = new QuestionPollViewModel();
-            vm.Expiretime = 3;
-            NewObject.Title = "title";
-            NewObject.Description = "description";
-            NewObject.CommentsEnabled = true;
+            NewQuestion.Title = "title";
+            NewQuestion.Description = "description";
+            NewQuestion.CommentsEnabled = true;
+            NewQuestion.Image = "image.png";
+            NewQuestion.Tag = "Relationship";
+            NewQuestion.DeletionTime = new DateTime(2020, 12, 25);
             vm.Poll = polls;
-            vm.Question = NewObject;
-            string serialized = JsonConvert.SerializeObject(vm);
+            vm.Question = NewQuestion;
+            vm.Expiretime = 3;
 
-            var response = await _client.PostAsync("api/Question/QuestionAndPoll", new StringContent(JsonConvert.SerializeObject(new QuestionPollViewModel()
-            {
-                Expiretime = 3,
-                Question =
-                {
-                Title = "title",
-                Description ="description",
-                Tag = "Relationship",
-                CommentsEnabled = true,
-                Image = "image.png",
-                DeletionTime = new DateTime(2020, 12, 25)
-                },
-                Poll =
-                {
-                    new PollsDTO(){Id = 11, QuestionId=11, Poll="Poll 1", Votes=11 },
-                    new PollsDTO(){Id = 10, QuestionId=11, Poll="Poll 2", Votes=12 }
-                }
-            }), Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync("api/Question/QuestionAndPoll", new StringContent(JsonConvert.SerializeObject(vm), Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
 

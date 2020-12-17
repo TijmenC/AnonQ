@@ -56,7 +56,7 @@ namespace AnonQTests
         [Fact]
         public async Task Get_Request_Wrong_ID()
         {
-            var response = await _client.GetAsync("api/Polls/7");
+            var response = await _client.GetAsync("api/Polls/99");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
