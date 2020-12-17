@@ -68,7 +68,7 @@ namespace AnonQTests
         [Fact]
         public async Task Post_Succeed_Question()
         {
-            var response = await _client.PostAsync("api/Question", new StringContent(JsonConvert.SerializeObject(new Question()
+            var response = await _client.PostAsync("api/Question", new StringContent(JsonConvert.SerializeObject(new QuestionDTO()
             {
                 Id = 10,
                 Title = "title",
@@ -110,7 +110,7 @@ namespace AnonQTests
         [Fact]
         public async Task Put_Succeed_Question()
         {
-            var response = await _client.PutAsync("api/Question/3", new StringContent(JsonConvert.SerializeObject(new Question()
+            var response = await _client.PutAsync("api/Question/3", new StringContent(JsonConvert.SerializeObject(new QuestionDTO()
             {
                 Id = 3,
                 Title = "title changed",

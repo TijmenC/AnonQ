@@ -1,4 +1,5 @@
 ﻿using AnonQ;
+using AnonQ.DTO;
 using AnonQ.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -77,7 +78,7 @@ namespace AnonQTests
         [Fact]
         public async Task Put_Succeed_Poll()
         {
-            var response = await _client.PutAsync("api/Polls/1", new StringContent(JsonConvert.SerializeObject(new Polls()
+            var response = await _client.PutAsync("api/Polls/1", new StringContent(JsonConvert.SerializeObject(new PollsDTO()
             {
                 Id = 1,
                 QuestionId = 1,
@@ -90,7 +91,7 @@ namespace AnonQTests
         [Fact]
         public async Task Put_Succeed_Poll_UpdateVotes()
         {
-            var response = await _client.PutAsync("api/Polls/1/UpdateVotes", new StringContent(JsonConvert.SerializeObject(new Polls()
+            var response = await _client.PutAsync("api/Polls/1/UpdateVotes", new StringContent(JsonConvert.SerializeObject(new PollsDTO()
             {
                 Id = 1,
                 QuestionId = 1,
@@ -103,7 +104,7 @@ namespace AnonQTests
         [Fact]
         public async Task Post_Succeed_Poll()
         {
-            var response = await _client.PostAsync("api/Polls", new StringContent(JsonConvert.SerializeObject(new Polls()
+            var response = await _client.PostAsync("api/Polls", new StringContent(JsonConvert.SerializeObject(new PollsDTO()
             {
                 Id = 10,
                 QuestionId = 1,

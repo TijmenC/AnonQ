@@ -1,4 +1,5 @@
 ﻿using AnonQ;
+using AnonQ.DTO;
 using AnonQ.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -62,7 +63,7 @@ namespace AnonQTests
         [Fact]
         public async Task Post_Succeed_Comment()
         {
-            var response = await _client.PostAsync("api/Comment", new StringContent(JsonConvert.SerializeObject(new Comment()
+            var response = await _client.PostAsync("api/Comment", new StringContent(JsonConvert.SerializeObject(new CommentDTO()
             {
                 Id = 10,
                 QuestionId = 1,
@@ -77,7 +78,7 @@ namespace AnonQTests
         [Fact]
         public async Task Put_Succeed_Comment()
         {
-            var response = await _client.PutAsync("api/Comment/1",  new StringContent(JsonConvert.SerializeObject(new Comment()
+            var response = await _client.PutAsync("api/Comment/1",  new StringContent(JsonConvert.SerializeObject(new CommentDTO()
             {
                 Id = 1,
                 QuestionId = 1,
