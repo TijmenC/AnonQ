@@ -88,7 +88,7 @@ namespace AnonQ.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateQuestion(long id, QuestionDTO todoItemDTO)
+        public async Task<IActionResult> UpdateQuestion(int id, QuestionDTO todoItemDTO)
         {
             if (id != todoItemDTO.Id)
             {
@@ -174,7 +174,6 @@ namespace AnonQ.Controllers
         public async Task<ActionResult<QuestionDTO>> CreateQuestion(QuestionDTO questionDTO)
         {
          
-
             var question = new Question
             {
                 Id = questionDTO.Id,
@@ -201,7 +200,7 @@ namespace AnonQ.Controllers
 
         // DELETE: api/Question/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestion(long id)
+        public async Task<ActionResult<QuestionDTO>> DeleteQuestion(int id)
         {
             var todoItem = await _context.Questions.FindAsync(id);
 

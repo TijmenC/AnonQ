@@ -1,5 +1,8 @@
 ﻿using AnonQ;
+using AnonQ.DTO;
+using AnonQ.Models;
 using FluentAssertions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -42,9 +45,96 @@ namespace AnonQTests
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
         [Fact]
-        public async Task Delete_Succeed_Comment()
+        public async Task Get_Request_Should_Return_Ok_GetRandomQuestionId()
         {
-            var response = await _client.DeleteAsync("api/question/1");
+            var response = await _client.GetAsync("api/question/GetRandomQuestionId");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+        [Fact]
+        public async Task Get_Request_Should_Return_Ok_QuestionAndPolls()
+        {
+            var response = await _client.GetAsync("api/question/1/QuestionAndPolls");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+        [Fact]
+        public async Task Delete_Succeed_Question()
+        {
+            var response = await _client.DeleteAsync("api/Question/2");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task Post_Succeed_Question()
+        {
+            var response = await _client.PostAsync("api/Question", new StringContent(JsonConvert.SerializeObject(new Question()
+            {
+                Id = 10,
+                Title = "title",
+                Description = "description",
+                Tag = "Relationship",
+                CommentsEnabled = true,
+                Image = "image.png",
+                DeletionTime = new DateTime(2020, 12, 25)
+            }), Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
+        [Fact]
+        public async Task Post_Succeed_QuestionAndPoll()
+        {
+            List<PollsDTO> polls = new List<PollsDTO>();
+            var NewObject = new QuestionDTO();
+            polls.Add(new PollsDTO() { Id = 11, QuestionId = 11, Poll = "Poll 1", Votes = 11 });
+            polls.Add(new PollsDTO() { Id = 10, QuestionId = 11, Poll = "Poll 2", Votes = 12 });
+            var vm = new QuestionPollViewModel();
+            vm.Expiretime = 3;
+            NewObject.Title = "title";
+            NewObject.Description = "description";
+            NewObject.CommentsEnabled = true;
+            vm.Poll = polls;
+            vm.Question = NewObject;
+            string serialized = JsonConvert.SerializeObject(vm);
+
+            var response = await _client.PostAsync("api/Question/QuestionAndPoll", new StringContent(JsonConvert.SerializeObject(new QuestionPollViewModel()
+            {
+                Expiretime = 3,
+                Question =
+                {
+                Title = "title",
+                Description ="description",
+                Tag = "Relationship",
+                CommentsEnabled = true,
+                Image = "image.png",
+                DeletionTime = new DateTime(2020, 12, 25)
+                },
+                Poll =
+                {
+                    new PollsDTO(){Id = 11, QuestionId=11, Poll="Poll 1", Votes=11 },
+                    new PollsDTO(){Id = 10, QuestionId=11, Poll="Poll 2", Votes=12 }
+                }
+            }), Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
+        [Fact]
+        public async Task Put_Succeed_Question()
+        {
+            var response = await _client.PutAsync("api/Question/3", new StringContent(JsonConvert.SerializeObject(new Question()
+            {
+                Id = 3,
+                Title = "title changed",
+                Description = "description changed",
+                Tag = "Relationship changed",
+                CommentsEnabled = false,
+                Image = "imagechanged.png",
+                DeletionTime = new DateTime(2020, 12, 22)
+            }), Encoding.UTF8, "application/json"));
 
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
