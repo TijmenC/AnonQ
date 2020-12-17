@@ -1,5 +1,7 @@
 ﻿using AnonQ;
+using AnonQ.Models;
 using FluentAssertions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -49,6 +51,41 @@ namespace AnonQTests
             var response = await _client.GetAsync("api/Comment/1/GetAllCommentsID");
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+        [Fact]
+        public async Task Delete_Succeed_Comment()
+        {
+            var response = await _client.DeleteAsync("api/Comment/1");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task Post_Succeed_Comment()
+        {
+            var response = await _client.PostAsync("api/Comment", new StringContent(JsonConvert.SerializeObject(new Comment()
+            {
+                Id = 10,
+                QuestionId = 1,
+                Text = "Comment 10",
+                Votes = 8
+            }), Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
+        [Fact]
+        public async Task Put_Succeed_Comment()
+        {
+            var response = await _client.PutAsync("api/Comment/1",  new StringContent(JsonConvert.SerializeObject(new Comment()
+            {
+                Id = 1,
+                QuestionId = 1,
+                Text = "Comment changed",
+                Votes = 5
+            }), Encoding.UTF8, "application/json"));
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
     }
 }

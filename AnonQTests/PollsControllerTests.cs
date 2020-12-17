@@ -50,5 +50,12 @@ namespace AnonQTests
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+        [Fact]
+        public async Task Delete_Succeed_Comment()
+        {
+            var response = await _client.DeleteAsync("api/Polls/2");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
     }
 }

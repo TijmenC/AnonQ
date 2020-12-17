@@ -51,6 +51,7 @@ namespace AnonQTests
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
         */
+        
         [Fact]
         public async Task Get_Request_Should_Return_Ok_One()
         {
@@ -79,6 +80,7 @@ namespace AnonQTests
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+        
         [Fact]
         public async Task Get_Request_Should_Return_Ok_QuestionAndPolls()
         {
@@ -86,8 +88,18 @@ namespace AnonQTests
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+        
+        /*
+        [Fact]
+        public async Task Delete_Succeed_Question()
+        {
+            var response = await _client.DeleteAsync("api/Question/2");
 
-     
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        */
+
+
 
     }
 }
