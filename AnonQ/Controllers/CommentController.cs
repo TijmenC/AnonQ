@@ -42,7 +42,7 @@ namespace AnonQ.Controllers
 
             return CommentToDTO(todoItem);
         }
-        // GET: api/Comment/5
+        // GET: api/Comment/5/GetAllCommentsID
         [HttpGet("{id}/GetAllCommentsID")]
         public async Task<ActionResult<IEnumerable<CommentDTO>>> GetAllCommentsID(int id)
         {

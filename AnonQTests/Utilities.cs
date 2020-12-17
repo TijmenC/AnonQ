@@ -11,6 +11,7 @@ namespace AnonQTests
         {
             db.Questions.AddRange(GetSeedingQuestions());
             db.Polls.AddRange(GetSeedingPolls());
+            db.Comments.AddRange(GetSeedingComments());
             db.SaveChanges();
         }
 
@@ -18,8 +19,11 @@ namespace AnonQTests
         {
             db.Questions.RemoveRange(db.Questions);
             db.Polls.RemoveRange(db.Polls);
+            db.Comments.RemoveRange(db.Comments);
             InitializeDbForTests(db);
         }
+
+
 
         public static List<Question> GetSeedingQuestions()
         {
@@ -40,6 +44,18 @@ namespace AnonQTests
         new Polls(){Id = 4, QuestionId=2, Poll="Poll4", Votes=15 },
         new Polls(){Id = 5, QuestionId=3, Poll="Poll5", Votes=8 },
         new Polls(){Id = 6, QuestionId=3, Poll="Poll6", Votes=11 },
+    };
+        }
+        public static List<Comment> GetSeedingComments()
+        {
+            return new List<Comment>()
+    {
+        new Comment(){Id = 1, QuestionId=1, Text="Comment1", Votes=5 },
+        new Comment(){Id = 2, QuestionId=1, Text="Comment2", Votes=10},
+        new Comment(){Id = 3, QuestionId=2, Text="Comment3", Votes=12 },
+        new Comment(){Id = 4, QuestionId=2, Text="Comment4", Votes=15 },
+        new Comment(){Id = 5, QuestionId=3, Text="Comment5", Votes=8 },
+        new Comment(){Id = 6, QuestionId=3, Text="Comment6", Votes=11 },
     };
         }
     }
