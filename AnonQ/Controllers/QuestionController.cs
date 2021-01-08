@@ -82,7 +82,7 @@ namespace AnonQ.Controllers
             return questionAndPoll;
 
         }
-    
+
 
         // PUT: api/Question/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -214,6 +214,48 @@ namespace AnonQ.Controllers
 
             return NoContent();
         }
+
+        // DELETE: api/TodoItems/5
+        [HttpDelete("DeleteQuestionAndPolls/{id}")]
+        public async Task<IActionResult> DeleteQuestionAndPolls(int id)
+        {
+            var todoItem = await _context.Questions.FindAsync(id);
+
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+
+            _context.Questions.Remove(todoItem);
+            var todoItems = _context.Polls.Where(x => x.QuestionId == id);
+
+            if (todoItems == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var poll in todoItems)
+            {
+                _context.Polls.Remove(poll);
+            }
+
+            var comments = _context.Comments.Where(x => x.QuestionId == id);
+
+            if (comments == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var comment in comments)
+            {
+                _context.Comments.Remove(comment);
+            }
+
+            await _context.SaveChangesAsync();
+           
+            return NoContent();
+        }
+
 
         private bool QuestionExists(long id)
         {
