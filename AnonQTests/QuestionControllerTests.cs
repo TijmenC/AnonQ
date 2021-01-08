@@ -66,6 +66,14 @@ namespace AnonQTests
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
         [Fact]
+        public async Task Delete_Succeed_QuestionAndPolls()
+        {
+            var response = await _client.DeleteAsync("api/Question/DeleteQuestionAndPolls/4");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Fact]
         public async Task Post_Succeed_Question()
         {
             var response = await _client.PostAsync("api/Question", new StringContent(JsonConvert.SerializeObject(new QuestionDTO()
@@ -123,5 +131,6 @@ namespace AnonQTests
 
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
+       
     }
 }

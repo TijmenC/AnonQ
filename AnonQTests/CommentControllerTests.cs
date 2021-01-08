@@ -42,7 +42,7 @@ namespace AnonQTests
         [Fact]
         public async Task Get_Request_Wrong_ID()
         {
-            var response = await _client.GetAsync("api/comment/7");
+            var response = await _client.GetAsync("api/comment/11");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }

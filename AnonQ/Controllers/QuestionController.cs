@@ -215,7 +215,7 @@ namespace AnonQ.Controllers
             return NoContent();
         }
 
-        // DELETE: api/TodoItems/5
+        // DELETE: api/Question/DeleteQuestionAndPolls/5
         [HttpDelete("DeleteQuestionAndPolls/{id}")]
         public async Task<IActionResult> DeleteQuestionAndPolls(int id)
         {
